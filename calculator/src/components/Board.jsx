@@ -3,16 +3,18 @@ import MathButton from "./MathButton";
 import WorkingButton from "./WorkingButton";
 import Window from "./Window";
 import styled from "styled-components";
+import { useState } from "react";
 
-const StyledLine = styled.h1`
+const StyledLine = styled.p`
   margin: 0;
 `;
 
 const Board = () => {
+  const [text, setText] = useState("");
   return (
     <>
       <StyledLine>
-        <Window />
+        <Window text={text} />
       </StyledLine>
       <StyledLine>
         <WorkingButton key={11} item={"on"} />
@@ -26,7 +28,7 @@ const Board = () => {
       </StyledLine>
       <StyledLine>
         <NumberButton key={4} item={4} />
-        <NumberButton key={5} item={4} />
+        <NumberButton key={5} item={5} />
         <NumberButton key={6} item={6} />
       </StyledLine>
       <StyledLine>

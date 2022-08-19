@@ -1,7 +1,15 @@
-import React from "react";
+import styled from "styled-components";
 
-const Window = () => {
-  return <div>Layout</div>;
+const StyledWindow = styled.button`
+  display: block;
+  padding: 2vh 14vw;
+  margin: 0 auto;
+  background-color: white;
+  color: black;
+`;
+
+const Window = ({ text }) => {
+  return <StyledWindow>{text}</StyledWindow>;
 };
 
 export default Window;
