@@ -17,34 +17,46 @@ const Board = () => {
         <Window text={text} />
       </StyledLine>
       <StyledLine>
-        <WorkingButton key={11} item={"on"} />
-        <WorkingButton key={12} item={"off"} />
-        <NumberButton key={0} item={0} />
-      </StyledLine>
-      <StyledLine>
-        <NumberButton key={1} item={1} />
-        <NumberButton key={2} item={2} />
-        <NumberButton key={3} item={3} />
-      </StyledLine>
-      <StyledLine>
-        <NumberButton key={4} item={4} />
-        <NumberButton key={5} item={5} />
-        <NumberButton key={6} item={6} />
-      </StyledLine>
-      <StyledLine>
-        <NumberButton key={7} item={7} />
-        <NumberButton key={8} item={8} />
-        <NumberButton key={9} item={9} />
-      </StyledLine>
-      <StyledLine>
-        <MathButton key={13} item={"+"} />
-        <MathButton key={14} item={"-"} />
-        <MathButton key={15} item={"/"} />
-      </StyledLine>
-      <StyledLine>
-        <MathButton key={16} item={"x"} />
-        <MathButton key={18} item={"%"} />
+        <WorkingButton
+          key={11}
+          item={"on"}
+          pressed={() => {
+            setText("");
+          }}
+        />
+        <WorkingButton
+          key={12}
+          item={"off"}
+          pressed={() => {
+            setText("");
+          }}
+        />
         <MathButton key={17} item={"="} />
+      </StyledLine>
+      <StyledLine>
+        <NumberButton key={1} item={1} text={text} setText={setText} />
+        <NumberButton key={2} item={2} text={text} setText={setText} />
+        <NumberButton key={3} item={3} text={text} setText={setText} />
+      </StyledLine>
+      <StyledLine>
+        <NumberButton key={4} item={4} text={text} setText={setText} />
+        <NumberButton key={5} item={5} text={text} setText={setText} />
+        <NumberButton key={6} item={6} text={text} setText={setText} />
+      </StyledLine>
+      <StyledLine>
+        <NumberButton key={7} item={7} text={text} setText={setText} />
+        <NumberButton key={8} item={8} text={text} setText={setText} />
+        <NumberButton key={9} item={9} text={text} setText={setText} />
+      </StyledLine>
+      <StyledLine>
+        <NumberButton key={0} item={0} text={text} setText={setText} />
+        <NumberButton key={13} item={"+"} text={text} setText={setText} />
+        <NumberButton key={14} item={"-"} text={text} setText={setText} />
+      </StyledLine>
+      <StyledLine>
+        <NumberButton key={16} item={"x"} />
+        <NumberButton key={15} item={"/"} />
+        <NumberButton key={18} item={"%"} />
       </StyledLine>
     </>
   );

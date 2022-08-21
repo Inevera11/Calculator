@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledWindow = styled.button`
+const StyledWindow = styled.span`
   display: block;
   padding: 2vh 14vw;
   margin: 0 auto;

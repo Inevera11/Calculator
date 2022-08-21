@@ -1,7 +1,7 @@
 import { Button } from "evergreen-ui";
 
-const WorkingButton = ({ item }) => {
-  return <Button>{item}</Button>;
+const WorkingButton = ({ item, pressed }) => {
+  return <Button onClick={pressed}>{item}</Button>;
 };
 
 export default WorkingButton;
