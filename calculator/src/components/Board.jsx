@@ -10,53 +10,178 @@ const StyledLine = styled.p`
 `;
 
 const Board = () => {
-  const [text, setText] = useState("");
+  const [equation, setEquation] = useState({ text: "", pressableKey: true });
   return (
     <>
       <StyledLine>
-        <Window text={text} />
+        <Window text={equation.text} />
       </StyledLine>
       <StyledLine>
         <WorkingButton
           key={11}
           item={"on"}
           pressed={() => {
-            setText("");
+            setEquation({ text: "", pressableKey: true });
           }}
         />
         <WorkingButton
           key={12}
           item={"off"}
           pressed={() => {
-            setText("");
+            setEquation({ text: "", pressableKey: true });
           }}
         />
         <MathButton key={17} item={"="} />
       </StyledLine>
       <StyledLine>
-        <NumberButton key={1} item={1} text={text} setText={setText} />
-        <NumberButton key={2} item={2} text={text} setText={setText} />
-        <NumberButton key={3} item={3} text={text} setText={setText} />
+        <NumberButton
+          key={1}
+          item={1}
+          onClick={() => {
+            setEquation({ text: equation.text + 1, pressableKey: true });
+          }}
+        />
+        <NumberButton
+          key={2}
+          item={2}
+          onClick={() => {
+            setEquation({ text: equation.text + 2, pressableKey: true });
+          }}
+        />
+        <NumberButton
+          key={3}
+          item={3}
+          onClick={() => {
+            setEquation({ text: equation.text + 3, pressableKey: true });
+          }}
+        />
       </StyledLine>
       <StyledLine>
-        <NumberButton key={4} item={4} text={text} setText={setText} />
-        <NumberButton key={5} item={5} text={text} setText={setText} />
-        <NumberButton key={6} item={6} text={text} setText={setText} />
+        <NumberButton
+          key={4}
+          item={4}
+          onClick={() => {
+            setEquation({ text: equation.text + 4, pressableKey: true });
+          }}
+        />
+        <NumberButton
+          key={5}
+          item={5}
+          onClick={() => {
+            setEquation({ text: equation.text + 5, pressableKey: true });
+          }}
+        />
+        <NumberButton
+          key={6}
+          item={6}
+          onClick={() => {
+            setEquation({ text: equation.text + 6, pressableKey: true });
+          }}
+        />
       </StyledLine>
       <StyledLine>
-        <NumberButton key={7} item={7} text={text} setText={setText} />
-        <NumberButton key={8} item={8} text={text} setText={setText} />
-        <NumberButton key={9} item={9} text={text} setText={setText} />
+        <NumberButton
+          key={7}
+          item={7}
+          onClick={() => {
+            setEquation({ text: equation.text + 7, pressableKey: true });
+          }}
+        />
+        <NumberButton
+          key={8}
+          item={8}
+          onClick={() => {
+            setEquation({ text: equation.text + 8, pressableKey: true });
+          }}
+        />
+        <NumberButton
+          key={9}
+          item={9}
+          onClick={() => {
+            setEquation({ text: equation.text + 9, pressableKey: true });
+          }}
+        />
       </StyledLine>
       <StyledLine>
-        <NumberButton key={0} item={0} text={text} setText={setText} />
-        <NumberButton key={13} item={"+"} text={text} setText={setText} />
-        <NumberButton key={14} item={"-"} text={text} setText={setText} />
+        <NumberButton
+          key={0}
+          item={0}
+          onClick={() => {
+            setEquation({ text: equation.text + 0, pressableKey: true });
+          }}
+        />
+        <MathButton
+          key={13}
+          item={"+"}
+          onClick={
+            equation.pressableKey
+              ? () => {
+                  setEquation({
+                    text: equation.text + "+",
+                    pressableKey: false,
+                  });
+                }
+              : () => setEquation({ text: equation.text, pressableKey: false })
+          }
+        />
+        <MathButton
+          key={14}
+          item={"-"}
+          onClick={
+            equation.pressableKey
+              ? () => {
+                  setEquation({
+                    text: equation.text + "-",
+                    pressableKey: false,
+                  });
+                }
+              : () => setEquation({ text: equation.text, pressableKey: false })
+          }
+        />
       </StyledLine>
       <StyledLine>
-        <NumberButton key={16} item={"x"} />
-        <NumberButton key={15} item={"/"} />
-        <NumberButton key={18} item={"%"} />
+        <MathButton
+          key={16}
+          item={"x"}
+          onClick={
+            equation.pressableKey
+              ? () => {
+                  setEquation({
+                    text: equation.text + "x",
+                    pressableKey: false,
+                  });
+                }
+              : () => setEquation({ text: equation.text, pressableKey: false })
+          }
+        />
+        <MathButton
+          key={15}
+          item={"/"}
+          onClick={
+            equation.pressableKey
+              ? () => {
+                  setEquation({
+                    text: equation.text + "/",
+                    pressableKey: false,
+                  });
+                }
+              : () => setEquation({ text: equation.text, pressableKey: false })
+          }
+        />
+        <MathButton
+          key={18}
+          item={"%"}
+          onClick={
+            equation.pressableKey
+              ? () => {
+                  setEquation({
+                    text: equation.text + "%",
+                    pressableKey: false,
+                  });
+                }
+              : () => setEquation({ text: equation.text, pressableKey: false })
+          }
+        />
       </StyledLine>
     </>
   );
