@@ -31,7 +31,11 @@ const Board = () => {
             setEquation({ text: "", pressableKey: true });
           }}
         />
-        <MathButton key={17} item={"="} />
+        <MathButton
+          key={17}
+          item={"="}
+          onClick={() => alert("Nic jeszcze nie umiem")}
+        />
       </StyledLine>
       <StyledLine>
         <NumberButton
