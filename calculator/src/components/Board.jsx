@@ -57,6 +57,13 @@ const Board = () => {
             text: "",
           });
           break;
+        case "=":
+          setEquation({
+            text: equation.subtext,
+            sign: "",
+            subtext: "",
+          });
+          break;
       }
     }
   }, [equation]);
@@ -97,7 +104,24 @@ const Board = () => {
         <MathButton
           key={17}
           item={"="}
-          onClick={() => alert("Nic jeszcze nie umiem")}
+          onClick={() =>
+            equation.pressableKey
+              ? () => {
+                  setEquation({
+                    subtext: Number(equation.text),
+                    sign: "=",
+                    pressableKey: false,
+                    text: equation.text,
+                  });
+                }
+              : () =>
+                  setEquation({
+                    text: equation.text,
+                    pressableKey: false,
+                    subtext: equation.subtext,
+                    sign: equation.sign,
+                  })
+          }
         />
       </StyledLine>
       <StyledLine>
