@@ -15,10 +15,10 @@ const StyledSubWindow = styled.span`
   color: #232020;
 `;
 
-const Window = ({ text, subtext, sign }) => {
+const Window = ({ display, subtext, sign }) => {
   return (
     <>
-      <StyledWindow>{text}</StyledWindow>
+      <StyledWindow>{display}</StyledWindow>
       <StyledSubWindow>
         {subtext}
         {sign}
