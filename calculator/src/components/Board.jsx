@@ -25,17 +25,18 @@ const Board = () => {
     { sign: "%", onClick: () => {} },
   ];
 
-  const computeOperation = (sign) => {
-    let result = 0;
+  const computeOperation = () => {
+    let result;
     switch (sign) {
       case "+":
         result = currNumber + prevNumber;
+        console.log("result");
         console.log(result);
+        console.log("subtext");
         console.log(subtext);
-
         break;
       case "-":
-        result = currNumber - prevNumber;
+        result = prevNumber - currNumber;
         break;
       case "*":
         result = currNumber * prevNumber;
@@ -51,7 +52,6 @@ const Board = () => {
         break;
     }
     setPrevNumber(result);
-    setCurrNumber(0);
     setSubtext(result);
     setSign(nextSign);
     setNextSign(null);
@@ -117,14 +117,17 @@ const Board = () => {
             item={sign}
             onClick={() => {
               if (pressable) {
-                if (prevNumber !== null) setCurrNumber(Number(display));
-                computeOperation(sign);
-                setNextSign(sign);
-                if (prevNumber === null && currNumber === null)
+                if (prevNumber !== null) {
+                  setCurrNumber(Number(display));
+                  setNextSign(sign);
+                  computeOperation();
+                }
+                if (prevNumber === null) {
                   setPrevNumber(Number(display));
-                setSubtext(Number(display));
-                setDisplay("");
-                setSign(sign);
+                  setSubtext(Number(display));
+                  setDisplay("");
+                  setSign(sign);
+                }
               }
               setPressable(false);
             }}
