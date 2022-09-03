@@ -7,8 +7,12 @@ const StyledBoard = styled.h1`
   background-color: pink;
   border: 10px solid black;
   padding: 2vh;
-  width: 30vw;
+  width: 35vw;
+  height: 45vh;
   margin: auto;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
 `;
 
 const Title = styled.h1`

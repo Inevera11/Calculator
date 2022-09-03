@@ -8,6 +8,15 @@ import { useState } from "react";
 const StyledLine = styled.p`
   margin: 0;
 `;
+const StyledNumLine = styled.p`
+  margin: 0;
+  display: grid;
+  column-gap: 2px;
+  row-gap: 2px;
+  grid-template-columns: 11vw 11vw 11vw;
+  justify-content: center;
+  margin-top: 0;
+`;
 
 const Board = () => {
   const [display, setDisplay] = useState("");
@@ -15,7 +24,7 @@ const Board = () => {
   const [prevNumber, setPrevNumber] = useState(null);
   const [currNumber, setCurrNumber] = useState(null);
   const [subtext, setSubtext] = useState(0);
-  const [sign, setSign] = useState(null);
+  const [sign, setSign] = useState("");
   const [nextSign, setNextSign] = useState(null);
   const operations = [
     { sign: "+", onClick: () => {} },
@@ -54,7 +63,7 @@ const Board = () => {
     setPrevNumber(result);
     setSubtext(result);
     setSign(nextSign);
-    setNextSign(null);
+    // setNextSign(null);
     setDisplay("");
   };
 
@@ -65,7 +74,7 @@ const Board = () => {
         setDisplay("");
         setCurrNumber(null);
         setPrevNumber(null);
-        setSign(null);
+        setSign("");
         setSubtext(0);
         setPressable(true);
       },
@@ -76,7 +85,7 @@ const Board = () => {
         setCurrNumber(null);
         setPrevNumber(null);
         setDisplay("");
-        setSign(null);
+        setSign("");
         setSubtext(0);
         setPressable(true);
       },
@@ -94,23 +103,21 @@ const Board = () => {
       <StyledLine>
         <Window display={display} subtext={subtext} sign={sign} />
       </StyledLine>
-      <StyledLine>
+      <StyledNumLine>
         {workingBtn.map(({ name, onClick }, index) => (
           <WorkingButton key={index} item={name} pressed={onClick} />
         ))}
-      </StyledLine>
-      {[...Array(10).keys()].map((numberItem) => (
-        <NumberButton
-          key={numberItem}
-          item={numberItem}
-          onClick={() => {
-            setDisplay(display + numberItem);
-            setPressable(true);
-          }}
-        />
-      ))}
+        {[...Array(10).keys()].map((numberItem) => (
+          <NumberButton
+            key={numberItem}
+            item={numberItem}
+            onClick={() => {
+              setDisplay(display + numberItem);
+              setPressable(true);
+            }}
+          />
+        ))}
 
-      <StyledLine>
         {operations.map(({ sign }, index) => (
           <MathButton
             key={index}
@@ -133,7 +140,7 @@ const Board = () => {
             }}
           />
         ))}
-      </StyledLine>
+      </StyledNumLine>
     </>
   );
 };
