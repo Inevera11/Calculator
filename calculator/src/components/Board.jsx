@@ -25,7 +25,7 @@ const Board = () => {
   const [currNumber, setCurrNumber] = useState(null);
   const [subtext, setSubtext] = useState(0);
   const [sign, setSign] = useState("");
-  // TO DO -> operacja wykonuje się na wciśnięcie kolejnego klawisza akcji,
+  // TO DO when changing sign -> operacja wykonuje się na wciśnięcie kolejnego klawisza akcji,
   // więc musi zapamiętać poprzedni znak, wykonać przypisaną mu operację,
   // a kolejny  naciśnięty wrzucić do pudełka "kolejny_znak" po czym zamienić je miejscami
   // const [nextSign, setNextSign] = useState(null);
