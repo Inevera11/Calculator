@@ -31,7 +31,7 @@ const StyledSubInput = styled(TextInput)`
   font-size: x-large;
 `;
 
-const Window = ({ display, subtext, sign }) => {
+const Window = ({ display, subtext }) => {
   return (
     <>
       <StyledWindow>
@@ -39,7 +39,7 @@ const Window = ({ display, subtext, sign }) => {
         <StyledSubInput
           name="subtext"
           placeholder="0"
-          value={(subtext, sign)}
+          value={subtext}
           readOnly
         />
       </StyledWindow>

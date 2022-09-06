@@ -3,7 +3,7 @@ import MathButton from "./MathButton";
 import WorkingButton from "./WorkingButton";
 import Window from "./Window";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const StyledLine = styled.p`
   margin: 0;
@@ -25,47 +25,84 @@ const Board = () => {
   const [currNumber, setCurrNumber] = useState(null);
   const [subtext, setSubtext] = useState(0);
   const [sign, setSign] = useState("");
-  const [nextSign, setNextSign] = useState(null);
+  // TO DO -> operacja wykonuje się na wciśnięcie kolejnego klawisza akcji,
+  // więc musi zapamiętać poprzedni znak, wykonać przypisaną mu operację,
+  // a kolejny  naciśnięty wrzucić do pudełka "kolejny_znak" po czym zamienić je miejscami
+  // const [nextSign, setNextSign] = useState(null);
   const operations = [
-    { sign: "+", onClick: () => {} },
-    { sign: "-", onClick: () => {} },
-    { sign: "*", onClick: () => {} },
-    { sign: "/", onClick: () => {} },
-    { sign: "%", onClick: () => {} },
+    { sign: "+" },
+    { sign: "-" },
+    { sign: "*" },
+    { sign: "/" },
+    { sign: "%" },
   ];
 
-  const computeOperation = () => {
+  const computeOperation = (sign) => {
+    setCurrNumber(Number(display));
+    console.log("setting currNumber Operation as", { currNumber });
     let result;
     switch (sign) {
       case "+":
         result = currNumber + prevNumber;
+        console.log(sign);
         console.log("result");
         console.log(result);
-        console.log("subtext");
-        console.log(subtext);
         break;
       case "-":
         result = prevNumber - currNumber;
+        console.log(sign);
+        console.log("result");
+        console.log(result);
         break;
       case "*":
         result = currNumber * prevNumber;
+        console.log(sign);
+        console.log("result");
+        console.log(result);
         break;
       case "/":
         result = prevNumber / currNumber;
+        console.log(sign);
+        console.log("result");
+        console.log(result);
         break;
       case "%":
         result = prevNumber % currNumber;
+        console.log(sign);
+        console.log("result");
+        console.log(result);
         break;
       default:
         console.log("default");
         break;
     }
     setPrevNumber(result);
-    setSubtext(result);
-    setSign(nextSign);
-    // setNextSign(null);
-    setDisplay("");
+    console.log("setting prevNumber Operation as", { prevNumber });
+
+    return result;
   };
+  useEffect(() => {
+    setDisplay("");
+  }, [subtext]);
+
+  useEffect(() => {
+    if (!pressable) {
+      if (prevNumber !== null) {
+        setPrevNumber(Number(subtext));
+        console.log("setting prevNumber useEffect1 as", { prevNumber });
+        setCurrNumber(Number(display));
+        console.log("setting currNum useEffect1 ", { currNumber });
+        setSubtext(computeOperation(sign));
+      }
+
+      if (prevNumber === null) {
+        setPrevNumber(Number(display));
+        console.log("setting prevNumber useEffect2 as", { prevNumber });
+        setSubtext(display + sign);
+        console.log("setting subtext useEffect2 as", { subtext });
+      }
+    }
+  }, [pressable]);
 
   const workingBtn = [
     {
@@ -93,7 +130,7 @@ const Board = () => {
     {
       name: "=",
       onClick: () => {
-        setDisplay(subtext.toString());
+        setDisplay(computeOperation(sign));
         setSubtext("");
       },
     },
@@ -101,7 +138,7 @@ const Board = () => {
   return (
     <>
       <StyledLine>
-        <Window display={display} subtext={subtext} sign={sign} />
+        <Window display={display} subtext={subtext} />
       </StyledLine>
       <StyledNumLine>
         {workingBtn.map(({ name, onClick }, index) => (
@@ -123,19 +160,7 @@ const Board = () => {
             key={index}
             item={sign}
             onClick={() => {
-              if (pressable) {
-                if (prevNumber !== null) {
-                  setCurrNumber(Number(display));
-                  setNextSign(sign);
-                  computeOperation();
-                }
-                if (prevNumber === null) {
-                  setPrevNumber(Number(display));
-                  setSubtext(Number(display));
-                  setDisplay("");
-                  setSign(sign);
-                }
-              }
+              setSign(sign);
               setPressable(false);
             }}
           />
