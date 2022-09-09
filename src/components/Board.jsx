@@ -4,6 +4,7 @@ import WorkingButton from "./WorkingButton";
 import Window from "./Window";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { OperationButton } from "./OperationButton";
 
 const StyledLine = styled.p`
   margin: 0;
@@ -32,8 +33,8 @@ const BoardStyled = styled.div`
 `;
 
 const Board = () => {
-  const [prevNumber, setPrevNumber] = useState("");
-  const [currNumber, setCurrNumber] = useState("");
+  const [value1, setValue1] = useState("");
+  const [value2, setValue2] = useState("");
   const [sign, setSign] = useState("");
   const [nextSign, seNextSign] = useState("");
 
@@ -43,16 +44,16 @@ const Board = () => {
     {
       name: "on",
       onClick: () => {
-        setCurrNumber(null);
-        setPrevNumber(null);
+        setValue1(null);
+        setValue2(null);
         setSign("");
       },
     },
     {
       name: "off",
       onClick: () => {
-        setCurrNumber(null);
-        setPrevNumber(null);
+        setValue2(null);
+        setValue1(null);
         setSign("");
       },
     },
@@ -60,7 +61,7 @@ const Board = () => {
   return (
     <BoardStyled>
       <StyledLine>
-        <Window prevNumber={prevNumber} currNumber={currNumber} />
+        <Window value1={value1} value2={value2} />
       </StyledLine>
       <StyledNumLine>
         {workingBtn.map(({ name, onClick }, index) => (
@@ -71,7 +72,7 @@ const Board = () => {
             key={numberItem}
             item={numberItem}
             onClick={() => {
-              setPrevNumber(prevNumber + numberItem);
+              setValue1(value1 + numberItem);
             }}
           />
         ))}
@@ -81,8 +82,21 @@ const Board = () => {
             key={index}
             item={sign}
             onClick={() => {
-              setSign(sign);
+              if (value2 === "") {
+                setValue2(value1);
+                setValue1("");
+              }
+              if (value2) {
+                console.log(value2);
+                console.log(value1);
+                setSign(sign);
+                setValue2(
+                  OperationButton(sign, Number(value1), Number(value2))
+                );
+                setValue1("");
+              }
             }}
+            s
           />
         ))}
       </StyledNumLine>

@@ -1,24 +1,26 @@
-export const OperationButton = ({}) => {
-  let result;
-  switch (sign) {
-    case "+":
-      result = currNumber + prevNumber;
-      break;
-    case "-":
-      result = prevNumber - currNumber;
-      break;
-    case "*":
-      result = currNumber * prevNumber;
-      break;
-    case "/":
-      result = prevNumber / currNumber;
-      break;
-    case "%":
-      result = prevNumber % currNumber;
-      break;
-    default:
-      console.log("default");
-      break;
-  }
-  return result;
+export const OperationButton = (sign, value1, value2) => {
+  if (value2 && value1) {
+    let result;
+    switch (sign) {
+      case "+":
+        result = value1 + value2;
+        break;
+      case "-":
+        result = value2 - value1;
+        break;
+      case "*":
+        result = value1 * value2;
+        break;
+      case "/":
+        result = value2 / value1;
+        break;
+      case "%":
+        result = value2 % value1;
+        break;
+      default:
+        console.log("default");
+        break;
+    }
+    return result;
+  } else console.log("else");
 };
