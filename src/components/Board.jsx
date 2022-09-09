@@ -83,6 +83,7 @@ const Board = () => {
               console.log(operation);
               if (value2 === null) {
                 setValue2(value1);
+                setValue1("");
                 if (sign === "-") {
                   setValue1("-");
                   setOperation("");
@@ -93,8 +94,8 @@ const Board = () => {
                   setValue2(
                     Compute(
                       sign,
-                      parseFloat(value1) ? parseFloat(value1) : 0,
-                      parseFloat(value2) ? parseFloat(value2) : 0
+                      parseFloat(value1, 10) ? parseFloat(value1, 10) : 0,
+                      parseFloat(value2, 10) ? parseFloat(value2, 10) : 0
                     )
                   );
                 else
