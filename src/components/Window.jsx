@@ -31,15 +31,20 @@ const StyledSubInput = styled(TextInput)`
   font-size: x-large;
 `;
 
-const Window = ({ display, subtext }) => {
+const Window = ({ value1, value2, operation }) => {
   return (
     <>
       <StyledWindow>
-        <StyledInput name="display" placeholder="0" value={display} readOnly />
+        <StyledInput
+          name="display"
+          placeholder="0"
+          value={operation + value1}
+          readOnly
+        />
         <StyledSubInput
           name="subtext"
           placeholder="0"
-          value={subtext}
+          value={value2 ? value2 : 0}
           readOnly
         />
       </StyledWindow>
