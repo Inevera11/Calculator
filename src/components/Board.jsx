@@ -3,8 +3,8 @@ import MathButton from "./MathButton";
 import WorkingButton from "./WorkingButton";
 import Window from "./Window";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { OperationButton } from "./OperationButton";
+import { useState } from "react";
+import { Compute } from "./Compute";
 
 const StyledLine = styled.p`
   margin: 0;
@@ -35,8 +35,7 @@ const BoardStyled = styled.div`
 const Board = () => {
   const [value1, setValue1] = useState("");
   const [value2, setValue2] = useState("");
-  const [sign, setSign] = useState("");
-  const [nextSign, seNextSign] = useState("");
+  const [operation, setOperation] = useState("");
 
   const operations = ["-", "+", "x", "/", "%", "="];
 
@@ -46,7 +45,7 @@ const Board = () => {
       onClick: () => {
         setValue1(null);
         setValue2(null);
-        setSign("");
+        setOperation("");
       },
     },
     {
@@ -54,7 +53,7 @@ const Board = () => {
       onClick: () => {
         setValue2(null);
         setValue1(null);
-        setSign("");
+        setOperation("");
       },
     },
   ];
@@ -82,21 +81,20 @@ const Board = () => {
             key={index}
             item={sign}
             onClick={() => {
+              setOperation(sign);
+              console.log(operation);
               if (value2 === "") {
                 setValue2(value1);
                 setValue1("");
               }
               if (value2) {
-                console.log(value2);
-                console.log(value1);
-                setSign(sign);
-                setValue2(
-                  OperationButton(sign, Number(value1), Number(value2))
-                );
+                if (operation === "")
+                  setValue2(Compute(sign, Number(value1), Number(value2)));
+                else
+                  setValue2(Compute(operation, Number(value1), Number(value2)));
                 setValue1("");
               }
             }}
-            s
           />
         ))}
       </StyledNumLine>

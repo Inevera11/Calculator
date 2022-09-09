@@ -1,14 +1,14 @@
-export const OperationButton = (sign, value1, value2) => {
+export const Compute = (operation, value1, value2) => {
   if (value2 && value1) {
     let result;
-    switch (sign) {
+    switch (operation) {
       case "+":
         result = value1 + value2;
         break;
       case "-":
         result = value2 - value1;
         break;
-      case "*":
+      case "x":
         result = value1 * value2;
         break;
       case "/":
