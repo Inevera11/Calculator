@@ -34,33 +34,31 @@ const BoardStyled = styled.div`
 
 const Board = () => {
   const [value1, setValue1] = useState("");
-  const [value2, setValue2] = useState("");
+  const [value2, setValue2] = useState(null);
   const [operation, setOperation] = useState("");
 
   const operations = ["-", "+", "x", "/", "%", "="];
 
   const workingBtn = [
     {
-      name: "on",
+      name: "C",
       onClick: () => {
-        setValue1(null);
+        setValue1("");
         setValue2(null);
         setOperation("");
       },
     },
     {
-      name: "off",
+      name: ".",
       onClick: () => {
-        setValue2(null);
-        setValue1(null);
-        setOperation("");
+        setValue1(value1 + ".");
       },
     },
   ];
   return (
     <BoardStyled>
       <StyledLine>
-        <Window value1={value1} value2={value2} />
+        <Window value1={value1} value2={value2} operation={operation} />
       </StyledLine>
       <StyledNumLine>
         {workingBtn.map(({ name, onClick }, index) => (
@@ -83,15 +81,27 @@ const Board = () => {
             onClick={() => {
               setOperation(sign);
               console.log(operation);
-              if (value2 === "") {
+              if (value2 === null) {
                 setValue2(value1);
                 setValue1("");
               }
-              if (value2) {
+              if (value2 !== null) {
                 if (operation === "")
-                  setValue2(Compute(sign, Number(value1), Number(value2)));
+                  setValue2(
+                    Compute(
+                      sign,
+                      parseFloat(value1) ? parseFloat(value1) : 0,
+                      parseFloat(value2) ? parseFloat(value2) : 0
+                    )
+                  );
                 else
-                  setValue2(Compute(operation, Number(value1), Number(value2)));
+                  setValue2(
+                    Compute(
+                      operation,
+                      parseFloat(value1) ? parseFloat(value1) : 0,
+                      parseFloat(value2) ? parseFloat(value2) : 0
+                    )
+                  );
                 setValue1("");
               }
             }}
