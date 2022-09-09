@@ -83,7 +83,10 @@ const Board = () => {
               console.log(operation);
               if (value2 === null) {
                 setValue2(value1);
-                setValue1("");
+                if (sign === "-") {
+                  setValue1("-");
+                  setOperation("");
+                }
               }
               if (value2 !== null) {
                 if (operation === "")
