@@ -8,6 +8,8 @@ const StyledWindow = styled.span`
   flex-direction: column;
   justify-content: space-evenly;
   color: rosybrown;
+  border-style: inset;
+  border-radius: 8px;
 `;
 
 const StyledInput = styled(TextInput)`
@@ -15,20 +17,24 @@ const StyledInput = styled(TextInput)`
   border: aliceblue;
   width: auto;
   border-radius: 0;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  height: 5vh;
+  height: 6vh;
   font-size: x-large;
+  font-weight: 500;
+  &:focus {
+    box-shadow: none;
+  }
 `;
 const StyledSubInput = styled(TextInput)`
   color: rosybrown;
   border: aliceblue;
   width: auto;
   border-radius: 0;
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
   height: 5vh;
   font-size: x-large;
+  font-weight: 500;
+  &:focus {
+    box-shadow: none;
+  }
 `;
 
 const Window = ({ value1, value2, operation }) => {

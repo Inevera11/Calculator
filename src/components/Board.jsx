@@ -6,26 +6,28 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Compute } from "./Compute";
 
-const StyledLine = styled.p`
+const StyledLine = styled.div`
   margin: 0;
 `;
-const StyledNumLine = styled.p`
+const StyledNumLine = styled.div`
   margin: 0;
   display: grid;
-  column-gap: 2px;
-  row-gap: 2px;
-  grid-template-columns: 11vw 11vw 11vw;
+  column-gap: 0.5vh;
+  row-gap: 0.5vw;
+  grid-template-columns: 7.5vw 7.5vw 7.5vw;
   justify-content: center;
   margin-top: 0;
 `;
 
 const BoardStyled = styled.div`
   justify-items: center;
-  background-color: pink;
-  border: 10px solid black;
+  background-color: #ed4d69c7;
+  box-shadow: inset 2px 2px #d96b7ec7;
+  border: 5px outset #9d2337c6;
+  border-radius: 2%;
   padding: 2vh;
-  width: 35vw;
-  height: 45vh;
+  width: 24vw;
+  height: 54vh;
   margin: auto;
   display: flex;
   justify-content: space-around;
@@ -80,7 +82,6 @@ const Board = () => {
             item={sign}
             onClick={() => {
               setOperation(sign);
-              console.log(operation);
               if (value2 === null) {
                 setValue2(value1);
                 setValue1("");

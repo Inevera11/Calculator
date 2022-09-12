@@ -3,14 +3,15 @@ import Board from "./components/Board";
 import styled from "styled-components";
 
 const Title = styled.h1`
-  color: white;
+  color: #d8ced9d1;
   margin: 4vh;
+  text-shadow: 20px -17px 3px black;
 `;
 
 function App() {
   return (
     <>
-      <Title>Welcome</Title>
+      <Title>Welcome ( ͡° ͜ʖ ͡°)</Title>
       <Board />
     </>
   );
