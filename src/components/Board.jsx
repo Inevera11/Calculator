@@ -39,6 +39,7 @@ const Board = () => {
   const [value2, setValue2] = useState(null);
   const [operation, setOperation] = useState("");
   const [clicked, setClicked] = useState(true);
+  const [computed, setComputed] = useState(false);
 
   const operations = ["-", "+", "x", "/", "%", "="];
 
@@ -50,11 +51,13 @@ const Board = () => {
         setValue2(null);
         setOperation("");
         setClicked(true);
+        setComputed(false);
       },
     },
     {
       name: ".",
       onClick: () => {
+        setComputed(false);
         setClicked(true);
         setValue1(value1 + ".");
       },
@@ -74,8 +77,13 @@ const Board = () => {
             key={numberItem}
             item={numberItem}
             onClick={() => {
+              if (operation === "=") {
+                setOperation("");
+                setValue2(null);
+              }
               setValue1(value1 + numberItem);
               setClicked(true);
+              setComputed(false);
             }}
           />
         ))}
@@ -85,20 +93,23 @@ const Board = () => {
             key={index}
             item={sign}
             onClick={() => {
+              if (computed) {
+                setOperation(sign);
+                setClicked(true);
+                sign === "=" ? setComputed(true) : setComputed(false);
+              }
               if (!clicked) {
                 setOperation(sign);
               }
-              if (clicked) {
+              if (clicked && computed === false) {
                 setClicked(false);
                 if (sign !== "=") {
                   setOperation(sign);
-                  console.log(sign);
                 }
                 if (value2 === null) {
                   if (sign === "-" && value1 === "") {
                     setValue1("-");
                     setOperation("");
-                    console.log("why here");
                   } else {
                     setValue2(value1);
                     setValue1("");
@@ -114,30 +125,19 @@ const Board = () => {
                       )
                     );
                     setValue1("");
-                    console.log("or here");
                   }
                   if (sign === "=") {
-                    console.log("operation", operation);
-                    setValue1(
-                      Compute(
-                        operation,
-                        parseFloat(value1, 10) ? parseFloat(value1, 10) : 0,
-                        parseFloat(value2, 10) ? parseFloat(value2, 10) : 0
-                      )
-                    );
-                    console.log("im here");
-                    setValue2(null);
-                    setOperation("");
-                  } else {
-                    setValue2(
-                      Compute(
-                        operation,
-                        parseFloat(value1, 10) ? parseFloat(value1, 10) : 0,
-                        parseFloat(value2, 10) ? parseFloat(value2, 10) : 0
-                      )
-                    );
-                    setValue1("");
+                    setComputed(true);
+                    setOperation("=");
                   }
+                  setValue2(
+                    Compute(
+                      operation,
+                      parseFloat(value1, 10) ? parseFloat(value1, 10) : 0,
+                      parseFloat(value2, 10) ? parseFloat(value2, 10) : 0
+                    )
+                  );
+                  setValue1("");
                 }
               }
             }}
