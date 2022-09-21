@@ -38,6 +38,7 @@ const Board = () => {
   const [value1, setValue1] = useState("");
   const [value2, setValue2] = useState(null);
   const [operation, setOperation] = useState("");
+  const [clicked, setClicked] = useState(true);
 
   const operations = ["-", "+", "x", "/", "%", "="];
 
@@ -48,11 +49,13 @@ const Board = () => {
         setValue1("");
         setValue2(null);
         setOperation("");
+        setClicked(true);
       },
     },
     {
       name: ".",
       onClick: () => {
+        setClicked(true);
         setValue1(value1 + ".");
       },
     },
@@ -72,6 +75,7 @@ const Board = () => {
             item={numberItem}
             onClick={() => {
               setValue1(value1 + numberItem);
+              setClicked(true);
             }}
           />
         ))}
@@ -81,33 +85,60 @@ const Board = () => {
             key={index}
             item={sign}
             onClick={() => {
-              setOperation(sign);
-              if (value2 === null) {
-                setValue2(value1);
-                setValue1("");
-                if (sign === "-") {
-                  setValue1("-");
-                  setOperation("");
-                }
+              if (!clicked) {
+                setOperation(sign);
               }
-              if (value2 !== null) {
-                if (operation === "")
-                  setValue2(
-                    Compute(
-                      sign,
-                      parseFloat(value1, 10) ? parseFloat(value1, 10) : 0,
-                      parseFloat(value2, 10) ? parseFloat(value2, 10) : 0
-                    )
-                  );
-                else
-                  setValue2(
-                    Compute(
-                      operation,
-                      parseFloat(value1, 10) ? parseFloat(value1, 10) : 0,
-                      parseFloat(value2, 10) ? parseFloat(value2, 10) : 0
-                    )
-                  );
-                setValue1("");
+              if (clicked) {
+                setClicked(false);
+                if (sign !== "=") {
+                  setOperation(sign);
+                  console.log(sign);
+                }
+                if (value2 === null) {
+                  if (sign === "-" && value1 === "") {
+                    setValue1("-");
+                    setOperation("");
+                    console.log("why here");
+                  } else {
+                    setValue2(value1);
+                    setValue1("");
+                  }
+                }
+                if (value2 !== null) {
+                  if (operation === "" && sign !== "=") {
+                    setValue2(
+                      Compute(
+                        sign,
+                        parseFloat(value1, 10) ? parseFloat(value1, 10) : 0,
+                        parseFloat(value2, 10) ? parseFloat(value2, 10) : 0
+                      )
+                    );
+                    setValue1("");
+                    console.log("or here");
+                  }
+                  if (sign === "=") {
+                    console.log("operation", operation);
+                    setValue1(
+                      Compute(
+                        operation,
+                        parseFloat(value1, 10) ? parseFloat(value1, 10) : 0,
+                        parseFloat(value2, 10) ? parseFloat(value2, 10) : 0
+                      )
+                    );
+                    console.log("im here");
+                    setValue2(null);
+                    setOperation("");
+                  } else {
+                    setValue2(
+                      Compute(
+                        operation,
+                        parseFloat(value1, 10) ? parseFloat(value1, 10) : 0,
+                        parseFloat(value2, 10) ? parseFloat(value2, 10) : 0
+                      )
+                    );
+                    setValue1("");
+                  }
+                }
               }
             }}
           />
