@@ -42,6 +42,8 @@ const Board = () => {
   const [computed, setComputed] = useState(false);
   const [preventDbblDot, setPreventDbblDot] = useState(true);
 
+  console.log("refresh");
+
   const operations = ["-", "+", "x", "/", "%", "="];
 
   const workingBtn = [
@@ -69,6 +71,7 @@ const Board = () => {
       },
     },
   ];
+
   return (
     <BoardStyled>
       <StyledLine>
@@ -80,7 +83,7 @@ const Board = () => {
         ))}
         {[...Array(10).keys()].map((numberItem) => (
           <NumberButton
-            key={numberItem}
+            key={`numberButton${numberItem}`}
             item={numberItem}
             onClick={() => {
               // after computing when number button pressed -> start over
@@ -109,7 +112,7 @@ const Board = () => {
               }
               if (!clickable) {
                 // changing sign without computing
-                setOperation(sign);
+                sign === "-" ? setValue1("-") : setOperation(sign);
               }
               if (clickable && computed === false) {
                 setClickable(false);

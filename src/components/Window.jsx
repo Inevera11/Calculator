@@ -44,7 +44,9 @@ const Window = ({ value1, value2, operation }) => {
         <StyledInput
           name="display"
           placeholder="0"
-          value={operation + value1}
+          value={
+            value1[0] === "-" ? operation + "(" + value1 : operation + value1
+          }
           readOnly
         />
         <StyledSubInput
