@@ -64,6 +64,7 @@ const Board = () => {
           setClickable(true);
           setValue1(value1 + ".");
           setPreventDbblDot(false);
+          if (value1 === "") setValue1("0.");
         }
       },
     },
