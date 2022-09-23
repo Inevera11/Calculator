@@ -1,6 +1,5 @@
-import NumberButton from "./NumberButton";
+import DisplayButton from "./DisplayButton";
 import MathButton from "./MathButton";
-import WorkingButton from "./WorkingButton";
 import Window from "./Window";
 import styled from "styled-components";
 import { useState } from "react";
@@ -41,7 +40,7 @@ const Board = () => {
 
   const operations = ["-", "+", "x", "/", "%", "="];
 
-  const workingBtn = [
+  const displayBtn = [
     {
       name: "C",
       onClick: () => {
@@ -63,12 +62,16 @@ const Board = () => {
         <Window value1={value1} value2={value2} operation={operation} />
       </StyledLine>
       <StyledNumLine>
-        {workingBtn.map(({ name, onClick }, index) => (
-          <WorkingButton key={index} item={name} pressed={onClick} />
+        {displayBtn.map(({ name, onClick }, index) => (
+          <DisplayButton
+            key={`operations${index}`}
+            item={name}
+            onClick={onClick}
+          />
         ))}
         {[...Array(10).keys()].map((numberItem) => (
-          <NumberButton
-            key={numberItem}
+          <DisplayButton
+            key={`number${numberItem}`}
             item={numberItem}
             onClick={() => {
               setValue1(value1 + numberItem);
