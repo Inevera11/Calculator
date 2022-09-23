@@ -1,10 +1,9 @@
-import NumberButton from "./NumberButton";
+import DisplayButton from "./DisplayButton";
 import MathButton from "./MathButton";
-import WorkingButton from "./WorkingButton";
 import Window from "./Window";
 import styled from "styled-components";
-import { useState } from "react";
-import { Compute } from "./Compute";
+import { useState, useEffect } from "react";
+import HandleMathButt from "./HandleMathButt";
 
 const StyledLine = styled.div`
   margin: 0;
@@ -36,24 +35,54 @@ const BoardStyled = styled.div`
 
 const Board = () => {
   const [value1, setValue1] = useState("");
-  const [value2, setValue2] = useState(null);
+  const [value2, setValue2] = useState("");
   const [operation, setOperation] = useState("");
+  const [clickable, setClickable] = useState(true);
 
-  const operations = ["-", "+", "x", "/", "%", "="];
+  const getResult = (sign) => {
+    if (value1 === "") setOperation(sign);
+    else {
+      if (operation !== "=") {
+        operation === ""
+          ? setValue2(value1)
+          : setValue2(HandleMathButt(operation, value1, value2));
+        setOperation(sign);
+        setClickable(true);
+        setValue1("");
+      }
+      if (operation === "=") {
+        setValue2(HandleMathButt(sign, value1, value2));
+        setOperation(sign);
+        setClickable(true);
+        setValue1("");
+      }
+    }
+  };
 
-  const workingBtn = [
+  const displayBtn = [
     {
       name: "C",
       onClick: () => {
         setValue1("");
         setValue2(null);
         setOperation("");
+        setClickable(true);
       },
     },
     {
       name: ".",
       onClick: () => {
-        setValue1(value1 + ".");
+        if (value1.indexOf(".") === -1) {
+          console.log(value1.search("."));
+          setClickable(false);
+          if (value1 === "") setValue1("0.");
+          else if (value1 === "-") setValue1("-0.");
+          else setValue1(value1 + ".");
+          if (operation === "=") {
+            setOperation("");
+            setValue2(null);
+          }
+        }
       },
     },
   ];
@@ -63,55 +92,76 @@ const Board = () => {
         <Window value1={value1} value2={value2} operation={operation} />
       </StyledLine>
       <StyledNumLine>
-        {workingBtn.map(({ name, onClick }, index) => (
-          <WorkingButton key={index} item={name} pressed={onClick} />
+        {displayBtn.map(({ name, onClick }, index) => (
+          <DisplayButton
+            key={`operations${index}`}
+            item={name}
+            onClick={onClick}
+          />
         ))}
         {[...Array(10).keys()].map((numberItem) => (
-          <NumberButton
-            key={numberItem}
+          <DisplayButton
+            key={`number${numberItem}`}
             item={numberItem}
             onClick={() => {
+              if (value1 === "") setClickable(false);
+              if (operation === "=") {
+                setOperation("");
+                setValue2(null);
+              }
               setValue1(value1 + numberItem);
             }}
           />
         ))}
-
-        {operations.map((sign, index) => (
-          <MathButton
-            key={index}
-            item={sign}
-            onClick={() => {
-              setOperation(sign);
-              if (value2 === null) {
-                setValue2(value1);
-                setValue1("");
-                if (sign === "-") {
+        <MathButton
+          key={1}
+          item={"-"}
+          onClick={
+            clickable && operation !== "="
+              ? () => {
                   setValue1("-");
-                  setOperation("");
+                  setClickable(false);
                 }
-              }
-              if (value2 !== null) {
-                if (operation === "")
-                  setValue2(
-                    Compute(
-                      sign,
-                      parseFloat(value1, 10) ? parseFloat(value1, 10) : 0,
-                      parseFloat(value2, 10) ? parseFloat(value2, 10) : 0
-                    )
-                  );
-                else
-                  setValue2(
-                    Compute(
-                      operation,
-                      parseFloat(value1, 10) ? parseFloat(value1, 10) : 0,
-                      parseFloat(value2, 10) ? parseFloat(value2, 10) : 0
-                    )
-                  );
-                setValue1("");
-              }
-            }}
-          />
-        ))}
+              : () => {
+                  getResult("-");
+                }
+          }
+        />
+        <MathButton
+          key={2}
+          item={"+"}
+          onClick={() => {
+            getResult("+");
+          }}
+        />
+        <MathButton
+          key={3}
+          item={"x"}
+          onClick={() => {
+            getResult("x");
+          }}
+        />
+        <MathButton
+          key={4}
+          item={"/"}
+          onClick={() => {
+            getResult("/");
+          }}
+        />
+        <MathButton
+          key={5}
+          item={"%"}
+          onClick={() => {
+            getResult("%");
+          }}
+        />
+        <MathButton
+          key={6}
+          item={"="}
+          onClick={() => {
+            getResult("=");
+          }}
+        />
       </StyledNumLine>
     </BoardStyled>
   );

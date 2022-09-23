@@ -8,8 +8,8 @@ const ButtonStyled = styled(Button)`
   background-color: #e7dde5;
 `;
 
-const WorkingButton = ({ item, pressed }) => {
-  return <ButtonStyled onClick={pressed}>{item}</ButtonStyled>;
+const DisplayButton = ({ item, onClick }) => {
+  return <ButtonStyled onClick={onClick}>{item}</ButtonStyled>;
 };
 
-export default WorkingButton;
+export default DisplayButton;
