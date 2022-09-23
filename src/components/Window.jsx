@@ -52,7 +52,7 @@ const Window = ({ value1, value2, operation }) => {
         <StyledSubInput
           name="subtext"
           placeholder="0"
-          value={value2 ? value2 : 0}
+          value={value2 && value2 !== "-" ? value2 : 0}
           readOnly
         />
       </StyledWindow>
