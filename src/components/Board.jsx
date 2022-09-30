@@ -3,7 +3,7 @@ import MathButton from "./MathButton";
 import Window from "./Window";
 import styled from "styled-components";
 import { useState } from "react";
-import HandleMathButt from "./HandleMathButt";
+import HandleMathButton from "./HandleMathButton";
 
 const StyledLine = styled.div`
   margin: 0;
@@ -40,22 +40,22 @@ const Board = () => {
   const [clickable, setClickable] = useState(true);
 
   const getResult = (sign) => {
-    if (value1 === "") setOperation(sign);
-    else {
-      if (operation !== "=") {
-        operation === ""
-          ? setValue2(value1)
-          : setValue2(HandleMathButt(operation, value1, value2));
-        setOperation(sign);
-        setClickable(true);
-        setValue1("");
-      }
-      if (operation === "=") {
-        setValue2(HandleMathButt(sign, value1, value2));
-        setOperation(sign);
-        setClickable(true);
-        setValue1("");
-      }
+    if (value1 === "") {
+      setOperation(sign);
+      return;
+    }
+    if (operation !== "=") {
+      operation === ""
+        ? setValue2(value1)
+        : setValue2(HandleMathButton(operation, value1, value2));
+      setOperation(sign);
+      setClickable(true);
+      setValue1("");
+    } else {
+      setValue2(HandleMathButton(sign, value1, value2));
+      setOperation(sign);
+      setClickable(true);
+      setValue1("");
     }
   };
 
@@ -73,7 +73,6 @@ const Board = () => {
       name: ".",
       onClick: () => {
         if (value1.indexOf(".") === -1) {
-          console.log(value1.search("."));
           setClickable(false);
           if (value1 === "") setValue1("0.");
           else if (value1 === "-") setValue1("-0.");

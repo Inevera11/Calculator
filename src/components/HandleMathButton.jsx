@@ -1,6 +1,6 @@
 import { Compute } from "./Compute";
 
-const HandleMathButt = (operation, value1, value2) => {
+const HandleMathButton = (operation, value1, value2) => {
   if (operation !== "") {
     if (value2 === "") return value1;
     else {
@@ -13,4 +13,4 @@ const HandleMathButt = (operation, value1, value2) => {
   }
 };
 
-export default HandleMathButt;
+export default HandleMathButton;
